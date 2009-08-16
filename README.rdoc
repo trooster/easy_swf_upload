@@ -21,6 +21,15 @@ Then, use this helper to embed swf upload to your application:
 
 You want to allow uploading only single file at once, you can pass :single_file => true option to swf_upload_area helper.
 
+Another example with a button image, and single file upload:
+
+  <%= swf_upload_area "Upload images", :url => upload_image_block_path,
+          :filetypes => "*.jpg; *.gif",
+          :single_file => true,
+          :button_image_url => "../images/XPButtonUploadText_61x22.png",
+          :button_width => 61,
+          :button_height => 22 %>
+
 In your controller:
   class PagesController < ApplicationController
 	# If your rails version < 2.3.0, go this way

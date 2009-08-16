@@ -32,7 +32,6 @@ var FlashUploader = Class.create({
 		this.swfUploadBlock = block
 		this.container = block.down('.uploadContainer')
 		this.postParams = new Hash()
-
 		this.postParams.set('authenticity_token', this.swfUploadBlock.down('.token').innerHTML)
 		this.postParams.set(this.swfUploadBlock.down('.session_key').innerHTML, this.swfUploadBlock.down('.session_id').innerHTML)
 
@@ -52,8 +51,9 @@ var FlashUploader = Class.create({
 			upload_success_handler: this.uploadSuccess.bind(this),
 			upload_complete_handler: this.uploadComplete.bind(this),
 			button_placeholder_id: this.swfUploadBlock.down('.embedArea').down('div').readAttribute('id'),
-			button_width: 180,
-			button_height: 18,
+			button_width: this.swfUploadBlock.down('.buttonWidth').innerHTML,
+			button_height: this.swfUploadBlock.down('.buttonHeight').innerHTML,
+			button_image_url: this.swfUploadBlock.down('.buttonImageUrl').innerHTML,
 			button_text: '<span class="button">' + this.swfUploadBlock.down('.buttonText').innerHTML + '</span>',
 			button_text_style: '.button { '+ this.swfUploadBlock.down('.buttonStyle').innerHTML +' }',
 			button_text_top_padding: 0,
