@@ -46,6 +46,8 @@ var FlashUploader = Class.create({
 			file_upload_limit: 0,
 
 			file_dialog_complete_handler: this.fileDialogComplete.bind(this),
+			file_queue_error_handler: this.fileQueueError.bind(this),
+			file_queued_handler:this.fileQueued.bind(this),
 			upload_progress_handler: this.uploadProgress.bind(this),
 			upload_error_handler: this.uploadError.bind(this),
 			upload_success_handler: this.uploadSuccess.bind(this),
@@ -73,14 +75,16 @@ var FlashUploader = Class.create({
 	},
 
 	fileDialogComplete: function(filesSelected, filesQueued) {
-		var template = new Template('<li id="#{id}"><h6>#{title}</h6><div class="bar"><div class="progress" style="width:0"></div></div></li>')
-
-		filesQueued.times(function(i) {
-			var file = this.swfu.getFile(this.currentFileIndex++)
-			this.container.insert(template.evaluate({id: this.fileDomId(file), title: file.name.escapeHTML()}))
-		}.bind(this))
-
 		this.swfu.startUpload()
+	},
+	
+	fileQueueError: function(file, errorCode, message) {
+		alert(file.name.escapeHTML() + ': ' + message)
+	},
+	
+	fileQueued: function(file) {
+		var template = new Template('<li id="#{id}"><h6>#{title}</h6><div class="bar"><div class="progress" style="width:0"></div></div></li>')
+		this.container.insert(template.evaluate({id: this.fileDomId(file), title: file.name.escapeHTML()}))
 	},
 
 	uploadProgress: function(file, bytesLoaded, bytesTotal) {
@@ -89,6 +93,9 @@ var FlashUploader = Class.create({
 
 	uploadError: function(file, errorCode, message) {
 		alert(message)
+		if (this.swfu.getStats().files_queued > 0) {
+			this.swfu.startUpload()
+		}
 	},
 	uploadSuccess: function(file, serverData) {
 		this.uploadProgress(file, 1, 1)
