@@ -8,6 +8,7 @@ module SwfUploadHelper
         <div class="session_key" style="display:none">#{CGI::escape(session_key)}</div>
         <div class="session_id" style="display:none">#{cookies[session_key]}</div>
         <div class="filetypes" style="display:none">#{options[:filetypes]}</div>
+        <div class="fileSizeLimit"  style="display:none">#{options[:file_size_limit] ? options[:file_size_limit] : "40 MB"}</div>
         <div class="singleFile" style="display:none">#{options[:single_file] ? 'true' : 'false'}</div>
         <div class="buttonText" style="display:none">#{options[:button_text]}</div>        
         <div class="buttonStyle" style="display:none">#{options[:button_style]}</div>

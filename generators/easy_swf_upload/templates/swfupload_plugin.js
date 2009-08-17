@@ -40,7 +40,7 @@ var FlashUploader = Class.create({
 			post_params: this.postParams.toObject(),
 			use_query_string: true,
 
-			file_size_limit: "40 MB",
+			file_size_limit: this.swfUploadBlock.down('.fileSizeLimit').innerHTML,
 			file_types: this.swfUploadBlock.down('.filetypes').innerHTML,
 			file_types_description: "",
 			file_upload_limit: 0,

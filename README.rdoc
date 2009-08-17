@@ -28,11 +28,15 @@ Then, use this helper to embed swf upload to your application:
 
 You want to allow uploading only single file at once, you can pass :single_file => true option to swf_upload_area helper.
 
+If you want to a file size limit use the file_size_limit option, for example :file_size_limit => "2 MB"
+The default file size limit = 40 MB.
+
 Another example with a button image, and single file upload:
 
   <%= swf_upload_area :url => upload_image_block_path,
           :filetypes => "*.jpg; *.gif",
           :single_file => true,
+          :file_size_limit => "100 MB"
           :button_image_url => "../images/XPButtonUploadText_61x22.png",
           :button_width => 61,
           :button_height => 22 %>
