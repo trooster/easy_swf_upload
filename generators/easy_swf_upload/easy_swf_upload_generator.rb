@@ -22,6 +22,18 @@ class EasySwfUploadGenerator < Rails::Generator::Base
              'public/javascripts/swfupload_plugin.js',
              :chmod => 0644,
              :collision => :force
+      m.file 'jsProgressBarHandler.js',
+             'public/javascripts/jsProgressBarHandler.js',
+             :chmod => 0644,
+             :collision => :force
+       m.file 'percentImage_back.png',
+             'public/images/percentImage_back.png',
+             :chmod => 0644,
+             :collision => :force
+       m.file 'percentImage.png',
+             'public/images/percentImage.png',
+             :chmod => 0644,
+             :collision => :force  
     end
   end
 end

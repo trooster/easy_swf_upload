@@ -26,6 +26,9 @@ var SwfuCookie = {
 	}
 }
 
+var total_file_size = 0
+var total_uploaded = 0
+
 var FlashUploader = Class.create({
 	initialize: function(block, index) {
 		this.index = index
@@ -48,6 +51,7 @@ var FlashUploader = Class.create({
 			file_dialog_complete_handler: this.fileDialogComplete.bind(this),
 			file_queue_error_handler: this.fileQueueError.bind(this),
 			file_queued_handler:this.fileQueued.bind(this),
+			upload_start_handler: this.uploadStart.bind(this),
 			upload_progress_handler: this.uploadProgress.bind(this),
 			upload_error_handler: this.uploadError.bind(this),
 			upload_success_handler: this.uploadSuccess.bind(this),
@@ -75,6 +79,9 @@ var FlashUploader = Class.create({
 	},
 
 	fileDialogComplete: function(filesSelected, filesQueued) {
+		window.TotalPB = new JS_BRAMUS.jsProgressBar($('totalUploaded'), 0);
+		window.TotalPB.setPercentage(0, true)
+		$('totalUploaded').show()
 		this.swfu.startUpload()
 	},
 	
@@ -83,23 +90,30 @@ var FlashUploader = Class.create({
 	},
 	
 	fileQueued: function(file) {
-		var template = new Template('<li id="#{id}"><h6>#{title}</h6><div class="bar"><div class="progress" style="width:0"></div></div></li>')
+		var template = new Template('<li id="#{id}"><h6>#{title}</h6><span id="#{id}_progress">[ Loading Progress Bar ]</span></li>')
 		this.container.insert(template.evaluate({id: this.fileDomId(file), title: file.name.escapeHTML()}))
+		eval("window.PB_" + this.fileDomId(file) + " = new JS_BRAMUS.jsProgressBar($('" + this.fileDomId(file) + "_progress'), '0')")
+		total_file_size += file.size
+	},
+
+	uploadStart: function(file) {
 	},
 
 	uploadProgress: function(file, bytesLoaded, bytesTotal) {
-		$(this.fileDomId(file)).down('.progress').setStyle({width: (bytesLoaded * 100 / bytesTotal + '%')})
+		eval("window.PB_" + this.fileDomId(file) + ".setPercentage('" + Math.round(bytesLoaded * 100 / bytesTotal) + "')")
+		window.TotalPB.setPercentage(Math.round((total_uploaded + bytesLoaded) * 100 / total_file_size))
 	},
 
 	uploadError: function(file, errorCode, message) {
 		alert(file.name.escapeHTML() + ': ' + message)
+		total_uploaded += file.size
 		if (this.swfu.getStats().files_queued > 0) {
 			this.swfu.startUpload()
 		}
 	},
 	uploadSuccess: function(file, serverData) {
-		this.uploadProgress(file, 1, 1)
-
+		this.uploadProgress(file, file.size, file.size)
+		total_uploaded += file.size
 		$(this.fileDomId(file)).fade({duration: 0.5, afterFinish: function(obj) {
 			obj.element.remove()
 		}.bind(this)})
@@ -112,6 +126,12 @@ var FlashUploader = Class.create({
 	uploadComplete: function(file) {
 		if (this.swfu.getStats().files_queued > 0) {
 			this.swfu.startUpload()
+		} else {
+			total_file_size = 0
+			total_uploaded = 0
+			$('totalUploaded').fade({duration: 0.5, afterFinish: function(obj) {
+				obj.element.hide()
+			}.bind(this)})
 		}
 	},
 

@@ -18,8 +18,8 @@ module SwfUploadHelper
         <div class="embedArea">
             <div id="swfUploadButton"></div>
         </div>
-        <ul class="uploadContainer">
-        </ul>
+        <span id="totalUploaded" style="display:none">[ Loading Progress Bar ]</span>
+        <ul class="uploadContainer"></ul>
     </div>}
   end
 end
