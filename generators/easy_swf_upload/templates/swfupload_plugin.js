@@ -92,7 +92,7 @@ var FlashUploader = Class.create({
 	},
 
 	uploadError: function(file, errorCode, message) {
-		alert(message)
+		alert(file.name.escapeHTML() + ': ' + message)
 		if (this.swfu.getStats().files_queued > 0) {
 			this.swfu.startUpload()
 		}
