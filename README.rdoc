@@ -12,13 +12,13 @@ In your application.html.erb include javascripts:
 
   <%= javascript_include_tag :defaults, :swf_upload %>
   
-Or on a specific page:
+Or on a specific page (assuming the prototype libraries are loaded in your application template):
 
   <% content_for :javascript do %>
 	<%= javascript_include_tag :swf_upload %>
   <% end %>
 
-Plugin doesn't works without prototype javascript library.
+The Plugin does not works without the prototype javascript library.
 
 Then, use this helper to embed swf upload to your application:
   <%= swf_upload_area :url => upload_image_block_path,
@@ -26,10 +26,9 @@ Then, use this helper to embed swf upload to your application:
           :button_text => "Upload",
           :button_style => "font-family: Arial, sans-serif; font-size: 14pt; font-weight:bold;" %>
 
-You want to allow uploading only single file at once, you can pass :single_file => true option to swf_upload_area helper.
+If you want to allow uploading of only a single file, you can pass :single_file => true option to swf_upload_area helper.
 
-If you want to a file size limit use the file_size_limit option, for example :file_size_limit => "2 MB"
-The default file size limit = 40 MB.
+If you want a file size limit use the file_size_limit option, for example :file_size_limit => "2 MB". The default file size limit = 40 MB.
 
 Another example with a button image, and single file upload:
 
@@ -58,12 +57,8 @@ In your controller:
   end
 
 
-Also, you need to customize uploading area, i used this css:
+Also, you need to customize uploading area, for example:
   <style>
-  body {
-    font-family: Arial, Helvetica, Sans-serif; font-size:12px;
-  }
-
   .uploadContainer {
     margin: 0; padding: 0;
   }
@@ -78,42 +73,7 @@ Also, you need to customize uploading area, i used this css:
     margin: 0; padding: 0; color: #000;
     font-size: 1.1em;
   }
-
-  .uploadContainer li div.bar {
-    width: 50%; margin: 0; padding: 0;
-    height: 0.5em; background: #def;
-  }
-
-  .uploadContainer li div.bar div.progress {
-    background: #003ee3;
-  }
   </style>
-
-Or if you use ncss:
-
-  body {
-    font-family: Arial, Helvetica, Sans-serif; font-size:12px;
-  }
-
-  .uploadContainer {
-    margin: 0; padding: 0;
-    li {
-      list-style: none;
-      margin: 0; padding: 0; height: 2em;
-      padding: 0.4em; border: #ccc; margin-bottom: 1em;
-      h6 {
-        margin: 0; padding: 0; color: #000;
-        font-size: 1.1em;
-      }
-      div.bar {
-        width: 50%; margin: 0; padding: 0;
-        height: 0.5em; background: #def;
-        div.progress {
-          background: #003ee3;
-        }
-      }
-    }
-  }
 
 Uploading file template:
 

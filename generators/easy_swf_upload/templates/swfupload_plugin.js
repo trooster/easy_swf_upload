@@ -80,8 +80,7 @@ var FlashUploader = Class.create({
 
 	fileDialogComplete: function(filesSelected, filesQueued) {
 		window.TotalPB = new JS_BRAMUS.jsProgressBar($('totalUploaded'), 0);
-		window.TotalPB.setPercentage(0, true)
-		$('totalUploaded').show()
+		if (filesQueued > 1) $('totalUploaded').show()
 		this.swfu.startUpload()
 	},
 	
