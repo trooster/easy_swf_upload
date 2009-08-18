@@ -105,14 +105,8 @@ var FlashUploader = Class.create({
 
 	uploadError: function(file, errorCode, message) {
 		alert(file.name.escapeHTML() + ': ' + message)
-		total_uploaded += file.size
-		if (this.swfu.getStats().files_queued > 0) {
-			this.swfu.startUpload()
-		}
 	},
 	uploadSuccess: function(file, serverData) {
-		this.uploadProgress(file, file.size, file.size)
-		total_uploaded += file.size
 		$(this.fileDomId(file)).fade({duration: 0.5, afterFinish: function(obj) {
 			obj.element.remove()
 		}.bind(this)})
@@ -124,10 +118,13 @@ var FlashUploader = Class.create({
 	},
 	uploadComplete: function(file) {
 		if (this.swfu.getStats().files_queued > 0) {
+			this.uploadProgress(file, file.size, file.size)
+			total_uploaded += file.size		// fixme: unfortunately it looks like file.size does not return the size on uploadError
 			this.swfu.startUpload()
 		} else {
 			total_file_size = 0
 			total_uploaded = 0
+			window.TotalPB.setPercentage(100)
 			$('totalUploaded').fade({duration: 0.5, afterFinish: function(obj) {
 				obj.element.hide()
 			}.bind(this)})
