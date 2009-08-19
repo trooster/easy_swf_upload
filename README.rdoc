@@ -8,8 +8,8 @@ Joris.
 
 This plugin will help you to embed swf upload into your project
 
-First, install this plugin:
-  script/plugin install git://github.com/over/easy_swf_upload.git
+First, install this plugin (my modified fork, or over's original version):
+  script/plugin install git://github.com/trooster/easy_swf_upload.git or script/plugin install git://github.com/over/easy_swf_upload.git
   #script/generate easy_swf_upload is called for you automatically
 
 == Example
