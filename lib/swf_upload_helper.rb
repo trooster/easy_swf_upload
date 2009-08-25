@@ -7,6 +7,7 @@ module SwfUploadHelper
         <div class="token" style="display:none">#{CGI::escape(form_authenticity_token)}</div>
         <div class="session_key" style="display:none">#{CGI::escape(session_key)}</div>
         <div class="session_id" style="display:none">#{cookies[session_key]}</div>
+        <div class="upload_id" style="display:none">#{options[:upload_id]}</div>
         <div class="filetypes" style="display:none">#{options[:filetypes]}</div>
         <div class="fileSizeLimit"  style="display:none">#{options[:file_size_limit] ? options[:file_size_limit] : "40 MB"}</div>
         <div class="singleFile" style="display:none">#{options[:single_file] ? 'true' : 'false'}</div>
