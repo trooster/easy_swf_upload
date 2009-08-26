@@ -137,9 +137,9 @@ var FlashUploader = Class.create({
 })
 FlashUploader.init = function() {
 	$$('.swfUploadArea').each(function(element, index) {
-		if (!element.flashUploader) {
+		//if (!element.flashUploader) {
 			element.flashUploader = new FlashUploader(element, index)
-		}
+		//}
 	})
 }
 
