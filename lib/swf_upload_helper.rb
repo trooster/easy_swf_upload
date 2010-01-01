@@ -18,7 +18,7 @@ module SwfUploadHelper
         <div class="buttonHeight" style="display:none">#{options[:button_height] || 18}</div>
         <div class="embedArea">
             <div class='embedButton'>
-              #{"<input type='button' value='" + options[:button_text] + "'/>" if options[:button_text] != ''}
+              #{"<input type='button' value='" + options[:button_text] + "' class='btn'/>" if options[:button_text] != ''}
               <div class='placeHolder' id='swfUploadButton'></div>
             </div>
         </div>
