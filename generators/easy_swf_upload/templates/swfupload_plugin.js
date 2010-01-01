@@ -56,7 +56,7 @@ var FlashUploader = Class.create({
 			upload_error_handler: this.uploadError.bind(this),
 			upload_success_handler: this.uploadSuccess.bind(this),
 			upload_complete_handler: this.uploadComplete.bind(this),
-			button_placeholder_id: this.swfUploadBlock.down('.embedArea').down('div').readAttribute('id'),
+			button_placeholder_id: this.swfUploadBlock.down('.embedArea').down('div.placeHolder').readAttribute('id'),
 			button_width: this.swfUploadBlock.down('.buttonWidth').innerHTML,
 			button_height: this.swfUploadBlock.down('.buttonHeight').innerHTML,
 			button_image_url: this.swfUploadBlock.down('.buttonImageUrl').innerHTML,
@@ -139,6 +139,18 @@ FlashUploader.init = function() {
 	$$('.swfUploadArea').each(function(element, index) {
 		//if (!element.flashUploader) {
 			element.flashUploader = new FlashUploader(element, index)
+			if ( element.down('.buttonText').innerHTML != '' )  {
+				buttonWrap = element.down(".embedButton")
+	      object = element.down('object')
+	      buttonWrap.relativize()
+	      object.absolutize()
+	      object.setStyle({
+		      left: 0,
+		      top: 0,
+		      width: buttonWrap.down('input').getWidth() + 'px',
+		      height: buttonWrap.down('input').getHeight() + 'px'
+			  })
+		   } 
 		//}
 	})
 }

@@ -9,15 +9,18 @@ module SwfUploadHelper
         <div class="session_id" style="display:none">#{cookies[session_key]}</div>
         <div class="upload_id" style="display:none">#{options[:upload_id]}</div>
         <div class="filetypes" style="display:none">#{options[:filetypes]}</div>
-        <div class="fileSizeLimit"  style="display:none">#{options[:file_size_limit] ? options[:file_size_limit] : "40 MB"}</div>
+        <div class="fileSizeLimit"  style="display:none">#{options[:file_size_limit] || "40 MB"}</div>
         <div class="singleFile" style="display:none">#{options[:single_file] ? 'true' : 'false'}</div>
         <div class="buttonText" style="display:none">#{options[:button_text]}</div>        
         <div class="buttonStyle" style="display:none">#{options[:button_style]}</div>
         <div class="buttonImageUrl" style="display:none">#{options[:button_image_url]}</div>
-        <div class="buttonWidth" style="display:none">#{options[:button_width] ? options[:button_width] : 180}</div>
-        <div class="buttonHeight" style="display:none">#{options[:button_height] ? options[:button_height] : 18}</div>
+        <div class="buttonWidth" style="display:none">#{options[:button_width] || 180}</div>
+        <div class="buttonHeight" style="display:none">#{options[:button_height] || 18}</div>
         <div class="embedArea">
-            <div id="swfUploadButton"></div>
+            <div class='embedButton'>
+              #{"<input type='button' value='" + options[:button_text] + "'/>" if options[:button_text] != ''}
+              <div class='placeHolder' id='swfUploadButton'></div>
+            </div>
         </div>
         <span id="totalUploaded" style="display:none">[ Loading Progress Bar ]</span>
         <ul class="uploadContainer"></ul>
