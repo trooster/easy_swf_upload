@@ -766,7 +766,7 @@ SWFUpload.prototype.flashReady = function () {
 SWFUpload.prototype.cleanUp = function (movieElement) {
 	// Pro-actively unhook all the Flash functions
 	try {
-		if (this.movieElement && typeof(movieElement.CallFunction) === "unknown") { // We only want to do this in IE
+		if (this.movieElement && typeof(this.movieElement.CallFunction) === "unknown") { // We only want to do this in IE
 			this.debug("Removing Flash functions hooks (this should only run in IE and should prevent memory leaks)");
 			for (var key in movieElement) {
 				try {
